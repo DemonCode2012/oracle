@@ -1,15 +1,16 @@
 import cx_Oracle as ora
 import time
-import getpass
+# import getpass
 
 import CheckDB
 import Choice
+# import window_login
 
-username = 'test'
+username = 'c##ly'
 password = 'abcd1234'
-ip = '192.168.194.103'
+ip = '192.168.194.1'
 port = '1521'
-srvnm = 'orcl'
+srvnm = 'pdborcl'
 
 # username = input("username:")
 # password = getpass.getpass("password:")
