@@ -81,16 +81,7 @@ def usr_login():
         #     print('请检查用户权限！')
 
 
-def print_port():
-    port = var_ip_port.get()
-    if port != '':
-        print(port)
-    else:
-        print('get nothing')
-
-
 btn_login = tk.Button(mainwin, text='Login', command=usr_login).place(x=100, y=250)
-#btn_login = tk.Button(mainwin, text='Login', command=print_port).place(x=100, y=250)
 
 
 mainwin.mainloop()
