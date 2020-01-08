@@ -22,37 +22,39 @@ tk.Label(mainwin, text='USRNAME', font=('黑体', 12)).place(x=50, y=150)
 tk.Label(mainwin, text='USRPASS', font=('黑体', 12)).place(x=50, y=180)
 
 # 输入信息框
-# # IP地址
-# var_ip_addr = tk.StringVar()
-# entry_ip_addr = tk.Entry(mainwin, textvariable=var_ip_addr, font=('Arial', 14))
-# entry_ip_addr.place(x=150, y=60)
-# ip = entry_ip_addr.get()
+# IP地址
+var_ip_addr = tk.StringVar()
+entry_ip_addr = tk.Entry(mainwin, textvariable=var_ip_addr, font=('Arial', 14))
+entry_ip_addr.place(x=150, y=60)
 # 端口
 var_ip_port = tk.StringVar()
 entry_ip_port = tk.Entry(mainwin, textvariable=var_ip_port, font=('Arial', 14))
 entry_ip_port.place(x=150, y=90)
-port = entry_ip_port.get()
 # 实例名
 var_db_name = tk.StringVar()
 entry_db_name = tk.Entry(mainwin, textvariable=var_db_name, font=('Arial', 14))
 entry_db_name.place(x=150, y=120)
-srvnm = entry_db_name.get()
 
 ip = '192.168.194.1'
+# port = 1521
+srvnm = 'pdborcl'
 
 # 用户名
 var_usr_name = tk.StringVar()
 entry_usr_name = tk.Entry(mainwin, textvariable=var_usr_name, font=('Arial', 14))
 entry_usr_name.place(x=150, y=150)
-username = entry_usr_name.get()
 # 用户密码
 var_usr_pwd = tk.StringVar()
 entry_usr_pwd = tk.Entry(mainwin, textvariable=var_usr_pwd, font=('Arial', 14), show='*')
 entry_usr_pwd.place(x=150, y=180)
-password = entry_usr_pwd.get()
 
 
 def usr_login():
+    ip = var_ip_addr.get()
+    port = var_ip_port.get()
+    srvnm = var_db_name.get()
+    username = var_usr_name.get()
+    password = var_usr_pwd.get()
     tnsnm = ora.makedsn(ip, port, service_name=srvnm)
     try:
         conn = ora.connect(username, password, dsn=tnsnm)
@@ -79,7 +81,16 @@ def usr_login():
         #     print('请检查用户权限！')
 
 
+def print_port():
+    port = var_ip_port.get()
+    if port != '':
+        print(port)
+    else:
+        print('get nothing')
+
+
 btn_login = tk.Button(mainwin, text='Login', command=usr_login).place(x=100, y=250)
+#btn_login = tk.Button(mainwin, text='Login', command=print_port).place(x=100, y=250)
 
 
 mainwin.mainloop()
