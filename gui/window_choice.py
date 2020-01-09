@@ -5,14 +5,7 @@ import Exp
 import ExplainPlan
 
 
-def choice(curs):
-    cho = input("""请选择你要查询你的信息：(输入序号即可,输入非序号输出)
-    1.  表空间数据文件
-    2.  用户
-    3.  用户对象
-    8.  查看执行计划
-    10. 导出表数据为csv
-    """)
+def choice(curs, cho):
     if cho == '1':
         DataFile.ora_datafile(curs)
     elif cho == '2':
