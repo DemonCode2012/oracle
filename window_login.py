@@ -3,14 +3,13 @@ import tkinter.messagebox
 import cx_Oracle as ora
 import time
 
-# import Main
 import Choice
 
 mainwin = tk.Tk()
 
 # 主窗口
 mainwin.title('OracleInfo')
-mainwin.geometry('500x300')
+mainwin.geometry('800x500')
 maintext = tk.Label(mainwin, text='Oracle Information Collection', font=('黑体', 20))
 maintext.pack()
 
@@ -21,58 +20,89 @@ tk.Label(mainwin, text='DB NAME', font=('黑体', 12)).place(x=50, y=120)
 tk.Label(mainwin, text='USRNAME', font=('黑体', 12)).place(x=50, y=150)
 tk.Label(mainwin, text='USRPASS', font=('黑体', 12)).place(x=50, y=180)
 
+
 # 输入信息框
-# IP地址
-var_ip_addr = tk.StringVar()
-entry_ip_addr = tk.Entry(mainwin, textvariable=var_ip_addr, font=('Arial', 14))
-entry_ip_addr.place(x=150, y=60)
-# 端口
-var_ip_port = tk.StringVar()
-entry_ip_port = tk.Entry(mainwin, textvariable=var_ip_port, font=('Arial', 14))
-entry_ip_port.place(x=150, y=90)
-# 实例名
-var_db_name = tk.StringVar()
-entry_db_name = tk.Entry(mainwin, textvariable=var_db_name, font=('Arial', 14))
-entry_db_name.place(x=150, y=120)
-
-ip = '192.168.194.1'
-# port = 1521
-srvnm = 'pdborcl'
-
-# 用户名
-var_usr_name = tk.StringVar()
-entry_usr_name = tk.Entry(mainwin, textvariable=var_usr_name, font=('Arial', 14))
-entry_usr_name.place(x=150, y=150)
-# 用户密码
-var_usr_pwd = tk.StringVar()
-entry_usr_pwd = tk.Entry(mainwin, textvariable=var_usr_pwd, font=('Arial', 14), show='*')
-entry_usr_pwd.place(x=150, y=180)
+# # IP地址
+# var_ip_addr = tk.StringVar()
+# entry_ip_addr = tk.Entry(mainwin, textvariable=var_ip_addr, font=('Arial', 14))
+# entry_ip_addr.place(x=150, y=60)
+# # 端口
+# var_ip_port = tk.StringVar()
+# entry_ip_port = tk.Entry(mainwin, textvariable=var_ip_port, font=('Arial', 14))
+# entry_ip_port.place(x=150, y=90)
+# # 实例名
+# var_db_name = tk.StringVar()
+# entry_db_name = tk.Entry(mainwin, textvariable=var_db_name, font=('Arial', 14))
+# entry_db_name.place(x=150, y=120)
+# # 用户名
+# var_usr_name = tk.StringVar()
+# entry_usr_name = tk.Entry(mainwin, textvariable=var_usr_name, font=('Arial', 14))
+# entry_usr_name.place(x=150, y=150)
+# # 用户密码
+# var_usr_pwd = tk.StringVar()
+# entry_usr_pwd = tk.Entry(mainwin, textvariable=var_usr_pwd, font=('Arial', 14), show='*')
+# entry_usr_pwd.place(x=150, y=180)
 
 
 def usr_login():
-    ip = var_ip_addr.get()
-    port = var_ip_port.get()
-    srvnm = var_db_name.get()
-    username = var_usr_name.get()
-    password = var_usr_pwd.get()
+    # ip = var_ip_addr.get()
+    # port = var_ip_port.get()
+    # srvnm = var_db_name.get()
+    # username = var_usr_name.get()
+    # password = var_usr_pwd.get()
+    ip = '192.168.194.1'
+    port = 1521
+    srvnm = 'pdborcl'
+    username = 'c##ly'
+    password = 'abcd1234'
     tnsnm = ora.makedsn(ip, port, service_name=srvnm)
     try:
         conn = ora.connect(username, password, dsn=tnsnm)
         # print('Connection Success!')
-
         curs = conn.cursor()
+        # window_todo()
+        # if Choice.choice(curs):
+        #     curs.close()
+        #     conn.close()
+        #     print('Bye !')
+        #     exit()
+        todowin = tk.Tk()
+        todowin.title('OracleInfo')
+        todowin.geometry('500x300')
+        maintext = tk.Label(todowin, text='请选择你要查询你的信息：\n(输入序号即可,输入非序号输出)', font=('黑体', 18))
+        maintext.pack()
 
-        if Choice.choice(curs):
-            curs.close()
-            conn.close()
-            print('Bye !')
-            exit()
+        # #########    Radiobutton    ######### #
+        def print_selection():
+            # var=1
+            if var == 0:
+                print('nothing get')
+            else:
+                print('Selecting ...')
+                Choice.choice(curs, var)
+                print('Selected !')
+                # if result:
+                #     todowin.destroy()
+
+        var = tk.IntVar()  # 定义一个var用来将radiobutton的值和Label的值联系在一起.
+        tk.Radiobutton(todowin, text='1.表空间数据文件'.ljust(100), variable=var, value=1,
+                       indicatoron=0, command=print_selection).place(x=50, y=60)
+        tk.Radiobutton(todowin, text='2.用户'.ljust(115), variable=var, value=2,
+                       indicatoron=0, command=print_selection).place(x=50, y=90)
+        tk.Radiobutton(todowin, text='3.用户对象'.ljust(109), variable=var, value=3,
+                       indicatoron=0, command=print_selection).place(x=50, y=120)
+        tk.Radiobutton(todowin, text='8.查看执行计划'.ljust(103), variable=var, value=8,
+                       indicatoron=0, command=print_selection).place(x=50, y=150)
+        tk.Radiobutton(todowin, text='10.导出表数据为csv'.ljust(99), variable=var, value=10,
+                       indicatoron=0, command=print_selection).place(x=50, y=180)
 
     except ora.DatabaseError as exc:
         error, = exc.args
         time_now = time.strftime("%Y%m%d %H:%M:%S", time.localtime())
         # 给变量名为error的赋值异常码
-        tk.messagebox.showerror(title='***** 连接/查询 失败！ *****', message="数据库错误代码: {}\n发生错误时间为: {}\n发生错误的数据库IP为: {}:{}".format(error.message, time_now, ip, port))
+        tk.messagebox.showerror(title='***** 连接/查询 失败！ *****',
+                                message="数据库错误代码: {}\n发生错误时间为: {}\n发生错误的数据库IP为: {}:{}".format(error.message, time_now,
+                                                                                              ip, port))
         # print('***** 连接/查询 失败！ *****')
         # print()
         # if error.code == 1017:
@@ -81,7 +111,6 @@ def usr_login():
         #     print('请检查用户权限！')
 
 
-btn_login = tk.Button(mainwin, text='Login', command=usr_login).place(x=100, y=250)
-
+btn_login = tk.Button(mainwin, text='Login', command=usr_login).place(x=100, y=450)
 
 mainwin.mainloop()
