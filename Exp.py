@@ -3,10 +3,10 @@ import Choice
 import Print_csv
 
 
-def ora_exp(curs):
+def ora_exp(curs, conn):
     tbnm = input("请输入表名：").upper()
     if tbnm == '':
-        ora_exp(curs)
+        ora_exp(curs, conn)
 
     # 格式化时间
     nls_format = "alter session set nls_date_format='yyyymmdd hh24:mi:ss' "
@@ -51,7 +51,7 @@ def ora_exp(curs):
         # for r in rr:
         #     printsql = r[0] + ' ' + cond
     elif colid == '':
-        ora_exp(curs)
+        ora_exp(curs, conn)
     else:
         colid = colid.split(',')
         listcol = ''
@@ -91,8 +91,8 @@ def ora_exp(curs):
 
     incont = input("是否继续导出表：（输入1继续,输入0返回上一菜单,其他输入退出）")
     if incont == '1':
-        ora_exp(curs)
+        ora_exp(curs, conn)
     elif incont == '0':
-        Choice.choice(curs)
+        Choice.choice(curs, conn)
     else:
         return True

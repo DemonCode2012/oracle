@@ -25,7 +25,7 @@ def plan_awr(curs, sqlid):
                 print(result)
 
 
-def getplan(curs):
+def getplan(curs, conn):
     # sqlid = input("请输入已知的SQL_ID：")
     sqlid = 'gg5uc5xbf58j2'
     display = input('请选择：1.cursor 2.awr')
@@ -34,12 +34,12 @@ def getplan(curs):
     elif display == '2':
         plan_awr(curs, sqlid)
     else:
-        getplan(curs)
+        getplan(curs, conn)
 
     incont = input("是否继续查询用户对象：（输入1继续,输入0返回上一菜单,其他输入退出）")
     if incont == '1':
-        getplan(curs)
+        getplan(curs, conn)
     elif incont == '0':
-        Choice.choice(curs)
+        Choice.choice(curs, conn)
     else:
         return True

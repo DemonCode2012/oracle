@@ -16,15 +16,15 @@ def choice(curs, conn):
     11. 处理监听日志
     """)
     if cho == '1':
-        DataFile.ora_datafile(curs)
+        DataFile.ora_datafile(curs, conn)
     elif cho == '2':
-        User.ora_user(curs)
+        User.ora_user(curs, conn)
     elif cho == '3':
-        Object.ora_object(curs)
+        Object.ora_object(curs, conn)
     elif cho == '8':
-        ExplainPlan.getplan(curs)
+        ExplainPlan.getplan(curs, conn)
     elif cho == '10':
-        Exp.ora_exp(curs)
+        Exp.ora_exp(curs, conn)
     elif cho == '11':
         Listener_log.listener_log(curs, conn)
     else:

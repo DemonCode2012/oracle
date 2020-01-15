@@ -1,7 +1,7 @@
 import Choice
 
 
-def ora_object(curs):
+def ora_object(curs, conn):
     ownnm = input("请输入用户名：")
 
     dictype = """select rownum, object_type from 
@@ -62,8 +62,8 @@ def ora_object(curs):
 
     incont = input("是否继续查询用户对象：（输入1继续,输入0返回上一菜单,其他输入退出）")
     if incont == '1':
-        ora_object(curs)
+        ora_object(curs, conn)
     elif incont == '0':
-        Choice.choice(curs)
+        Choice.choice(curs, conn)
     else:
         return True
