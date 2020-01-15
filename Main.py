@@ -20,7 +20,7 @@ srvnm = 'pdborcl'
 
 tnsnm = ora.makedsn(ip, port, service_name=srvnm)
 
-CheckDB.checkdb(ip, port, tnsnm)
+# CheckDB.checkdb(ip, port, tnsnm)
 
 try:
     conn = ora.connect(username, password, dsn=tnsnm)
@@ -28,7 +28,7 @@ try:
 
     curs = conn.cursor()
 
-    if Choice.choice(curs):
+    if Choice.choice(curs, conn):
         curs.close()
         conn.close()
         print('Bye !')
@@ -44,3 +44,4 @@ except ora.DatabaseError as exc:
         print('请检查用户密码！')
     elif error.code == 942:
         print('请检查用户权限！')
+    # ORA-12899: value too large for column

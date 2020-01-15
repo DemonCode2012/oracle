@@ -25,7 +25,7 @@ def f_todowin(curs):
                 todowin.destroy()
 
     var = tk.IntVar()  # 定义一个var用来将radiobutton的值和Label的值联系在一起.
-    tk.Radiobutton(todowin, text='1.表空间数据文件'.ljust(100), variable=var, value='1',
+    tk.Radiobutton(todowin, text='1.表空间数据文件'.ljust(100), variable=var, value=1,
                    indicatoron=0, command=print_selection).place(x=50, y=60)
     tk.Radiobutton(todowin, text='2.用户'.ljust(115), variable=var, value='2',
                    indicatoron=0, command=print_selection).place(x=50, y=90)
