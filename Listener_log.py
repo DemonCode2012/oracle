@@ -14,8 +14,8 @@ def listener_log(curs, conn):
     curs.execute("create index i_lsnr_log on lsnr_log(dttm)")
     print("Create Index Successfully!")
 
-    # f_path = input("Path and name of log file :")
-    f_path = r'D:\1.Project\python\oracle\listener.log'
+    f_path = input("Path and name of log file :")
+    # f_path = r'D:\1.Project\python\oracle\listener_sample.log'
     f = open(f_path, 'r')
     count = len(f.readlines())
     f.close()
