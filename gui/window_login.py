@@ -3,6 +3,7 @@ import tkinter.messagebox
 import cx_Oracle as ora
 import time
 
+# from gui import window_choice as choice
 from gui import window_todo
 
 mainwin = tk.Tk()

@@ -13,6 +13,7 @@ def f_todowin(curs):
     # #########    Radiobutton    ######### #
     def print_selection():
         v = var.get()
+
         # v = 1
         if v == 0:
             print('nothing get')
@@ -23,6 +24,7 @@ def f_todowin(curs):
             if choice.choice(curs, v):
                 print('Selected !')
                 todowin.destroy()
+        return v
 
     var = tk.IntVar()  # 定义一个var用来将radiobutton的值和Label的值联系在一起.
     tk.Radiobutton(todowin, text='1.表空间数据文件'.ljust(100), variable=var, value=1,
@@ -35,3 +37,4 @@ def f_todowin(curs):
                    indicatoron=0, command=print_selection).place(x=50, y=150)
     tk.Radiobutton(todowin, text='10.导出表数据为csv'.ljust(99), variable=var, value='10',
                    indicatoron=0, command=print_selection).place(x=50, y=180)
+    return var.get()
