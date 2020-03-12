@@ -4,6 +4,7 @@ import Object
 import Exp
 import ExplainPlan
 import Listener_log
+import vBank
 
 
 def choice(curs, conn):
@@ -14,6 +15,7 @@ def choice(curs, conn):
     8.  查看执行计划
     10. 导出表数据为csv
     11. 处理监听日志
+    21. 进入虚拟银行系统
     """)
     if cho == '1':
         DataFile.ora_datafile(curs, conn)
@@ -27,5 +29,7 @@ def choice(curs, conn):
         Exp.ora_exp(curs, conn)
     elif cho == '11':
         Listener_log.listener_log(curs, conn)
+    elif cho == '21':
+        vBank.vbank(curs, conn)
     else:
         return True

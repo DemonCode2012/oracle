@@ -1,24 +1,26 @@
 import cx_Oracle as ora
 import time
-import getpass
+# import getpass
 
 import CheckDB
 import Choice
 # import window_login
 
-# username = 'c##ly'
-# password = 'abcd1234'
-# ip = '192.168.194.1'
-# port = '1521'
-# srvnm = 'pdborcl'
+username = 'c##ly'
+password = 'abcd1234'
+ip = '192.168.194.105'
+port = '1521'
+srvnm = 'pdb'
+print("Logging on database ...")
 
-username = input("username:")
-password = getpass.getpass("password:")
-ip = input("ip:")
-port = input("port:")
-srvnm = input("service_name:")
+# username = input("username:")
+# password = getpass.getpass("password:")
+# ip = input("ip:")
+# port = input("port:")
+# srvnm = input("service_name:")
 
 tnsnm = ora.makedsn(ip, port, service_name=srvnm)
+# print(tnsnm)
 
 CheckDB.checkdb(ip, port, tnsnm)
 
