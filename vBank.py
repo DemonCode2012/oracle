@@ -14,7 +14,9 @@ def register(curs, conn):
 
 
 # 登陆系统
-def logon(curs, conn, account_id, passwd):
+def logon(curs, conn):
+    account_id = input("请输入账号ID:")
+    passwd = input("请输入账号密码:")
     global db_passwd
     logon_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(logon_date)
@@ -24,18 +26,19 @@ def logon(curs, conn, account_id, passwd):
     if passwd == db_passwd:
         logon_status = 'Y'
         print("Logon Successfully!")
-        choice(curs, conn, account_id, passwd)
+        choice(curs, conn, account_id)
     else:
         logon_status = 'N'
         print("Logon Failed!")
+        logon(curs, conn)
     logon_hist_insert = "insert into logon_hist values({},to_date('{}','yyyy-mm-dd hh24:mi:ss')," \
                         "'{}')".format(account_id, logon_date, logon_status)
     curs.execute(logon_hist_insert)
-    conn.commit()
+    return account_id
 
 
 # 选择功能
-def choice(curs, conn, account_id, passwd):
+def choice(curs, conn, account_id):
     cho = input("""请输入你要干啥：
     1.  存款
     2.  取款
@@ -56,7 +59,7 @@ def choice(curs, conn, account_id, passwd):
         return True
     else:
         print("请重新登陆：")
-        logon(curs, conn, account_id, passwd)
+        logon(curs, conn)
 
 
 # 存款系统
@@ -104,16 +107,16 @@ def vbank(curs, conn):
         register(curs, conn)
     elif reg == '1':
         # 登陆银行系统
-        id = input("请输入账号ID:")
-        passwd = input("请输入账号密码:")
-        logon(curs, conn, id, passwd)
+        account_id = logon(curs, conn)
+        print("登陆用户为", account_id)
         incont = input("是否继续:（输入1继续,输入0返回上一菜单,其他输入退出）")
         if incont == '1':
-            choice(curs, conn, id, passwd)
+            choice(curs, conn, account_id)
         elif incont == '0':
             Choice.choice(curs, conn)
         else:
             return True
+        conn.commit()
 
 
 
